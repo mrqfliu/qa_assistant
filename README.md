@@ -1,5 +1,4 @@
-```markdown
-# 🧬 Protein Research Document QA Assistant
+# 🧬 蛋白质研究文档问答系统
 
 <div align="center">
   <img src="https://img.shields.io/badge/Python-3.10-blue" alt="Python">
@@ -8,222 +7,146 @@
   <img src="https://img.shields.io/badge/Privacy-Offline-critical" alt="Privacy">
 </div>
 
-## 📌 Project Overview
+## 📌 项目概述
 
-An intelligent document QA system designed for protein research, combining local LLMs (ChatGLM-6B) and cloud API models (Qwen). Key features:
+专为蛋白质研究设计的智能文档问答系统，结合本地大模型（ChatGLM-6B）和云端API模型（通义千问）。核心特点：
 
-- 🔒 **Full offline operation** - Sensitive data never leaves local environment
-- 🤖 **Dual-model engine** - Seamless switch between local and cloud models
-- 🧠 **Smart RAG architecture** - Retrieval-Augmented Generation for protein documents
-- 📚 **Multi-document support** - Process multiple research papers simultaneously
-- 🔍 **Answer provenance** - Source documents and reference locations provided
+- 🔒 **完全离线运行** - 敏感数据不离开本地环境
+- 🤖 **双模型引擎** - 本地与云端模型无缝切换
+- 🧠 **智能RAG架构** - 基于蛋白质文档的检索增强生成
+- 📚 **多文档支持** - 同时处理多篇研究文献
+- 🔍 **答案溯源** - 提供答案来源和参考位置
 
-## ✨ Core Features
+## ✨ 核心功能
 
-### 🔒 Offline Private Deployment
-- Local model handles sensitive data without internet
-- Full document processing pipeline on-premise
-- Zero data transmission risk, enterprise-compliant
+### 🔒 离线私有化部署
+- 本地模型处理敏感数据，无需网络连接
+- 文档解析、向量化、问答全流程本地化
+- 零数据外传风险，符合企业安全规范
 
-### 🤖 Multi-Model Support
-| Model Type | Model Name | Use Case | Characteristics |
-|------------|------------|----------|-----------------|
-| 🖥️ Local | ChatGLM-6B | Sensitive data/Offline | 14GB size, no data leakage |
-| ☁️ Web API | Qwen | Complex queries | Enhanced reasoning capabilities |
-| 🔍 Embedding | M3E-base | Text vectorization | Chinese-optimized, efficient retrieval |
+### 🤖 多模型支持
+| 模型类型 | 模型名称 | 使用场景 | 特点 |
+|---------|---------|---------|------|
+| 🖥️ 本地模型 | ChatGLM-6B | 敏感数据处理/离线环境 | 无数据泄露 |
+| ☁️ 网页API | 通义千问 | 复杂问题处理 | 更强的推理能力 |
+| 🔍 嵌入模型 | M3E-base | 文本向量化 | 中文优化，高效检索 |
 
-### 📚 Local Knowledge Base QA
-1. **Document Processing**:
-   - PDF text extraction and cleaning
-   - Smart chunking
-   - Metadata extraction (filename, page number)
+### 📚 本地知识库问答
+1. **文档处理**：
+   - PDF文本提取与清洗
+   - 智能分块
+   - 元数据提取（文件名、页码）
  
-2. **Knowledge Building**:
-   - FAISS vector index construction
-   - Text embeddings via M3E model
-   - Dynamic knowledge base updates
+2. **知识构建**：
+   - 使用FAISS构建向量索引
+   - M3E模型生成文本嵌入
+   - 动态更新知识库
 
-3. **Intelligent QA**:
-   - Protein-specific question answering
-   - Strict prompt-based hallucination prevention
-   - Source attribution (document + page)
+3. **智能问答**：
+   - 蛋白质专业问题解答
+   - 严格Prompt约束防止幻觉
+   - 答案来源标注（文档+页码）
 
-### 🧠 RAG Architecture
+### 🧠 RAG架构流程
 ```mermaid
 graph TD
-    A[User Query] --> B[Query Vectorization]
-    C[Local Knowledge Base] --> D[Similarity Search]
+    A[用户提问] --> B[问题向量化]
+    C[本地知识库] --> D[相似度检索]
     B --> D
-    D --> E[Relevant Text Segments]
-    E --> F{Model Selection}
-    F -->|Local| G[ChatGLM-6B]
-    F -->|API| H[Qwen]
-    G --> I[Generate Answer]
+    D --> E[相关文本片段]
+    E --> F{模型选择}
+    F -->|本地| G[ChatGLM-6B]
+    F -->|API| H[通义千问]
+    G --> I[生成答案]
     H --> I
-    I --> J[Source Attribution]
-    J --> K[Return Result]
+    I --> J[溯源标注]
+    J --> K[返回结果]
 ```
 
-### 📝 Conversation Management
-- Full conversation history
-- One-click history clearance
-- Context-aware continuous dialogue
-- Expandable/collapsible sources
+### 📝 对话管理
+- 完整对话历史记录
+- 一键清空对话历史
+- 可展开/折叠的答案来源
 
-## ⚙️ Installation Guide
+## ⚙️ 安装指南
 
-### 1. Create Conda Environment
+### 1. 创建Conda环境
 ```bash
 conda create -n protein-qa python=3.10
 conda activate protein-qa
 ```
 
-### 2. Install Dependencies
+### 2. 安装依赖
 ```bash
 pip install -r requirements.txt
 ```
 
-For China users:
+国内用户推荐使用清华镜像：
 ```bash
 pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
-### 3. Download Models
-#### FAISS Vector Database
-```bash
-git clone https://github.com/facebookresearch/faiss.git
-cd faiss
-cmake -B build .
-make -C build -j faiss
-make -C build -j swigfaiss
-cd build/faiss/python && python setup.py install
-```
-
-#### M3E Embedding Model
+### 3. 下载模型
+#### M3E嵌入模型
 ```bash
 git lfs install
 git clone https://huggingface.co/moka-ai/m3e-base
 ```
 
-#### ChatGLM-6B Local Model (~14GB)
+#### ChatGLM-6B本地模型
 ```bash
 git lfs install
 git clone https://huggingface.co/THUDM/chatglm-6b
 ```
 
-## 🚀 Quick Start
+## 🚀 快速开始
 
-### 1. Configure Environment
-Create `.env` file:
-```env
-# Qwen API key (for API mode)
+### 1. 配置环境
+# 通义千问API密钥（API模式需要）
 DASHSCOPE_API_KEY=your_api_key_here
 
-# Local model path
-LOCAL_MODEL_PATH=./models/chatglm-6b
+# 本地模型路径
+model_path=./models/chatglm-6b
 ```
 
-### 2. Launch Application
+### 2. 启动网页应用
 ```bash
-streamlit run app.py
+streamlit run protein_qa_assistant.py
 ```
 
-### 3. Usage Workflow
-1. **Upload Documents**:
-   - Click "Upload PDF Documents"
-   - Select protein research PDFs
-   - System auto-parses and builds knowledge base
+## ⚠️ 重要说明
 
-2. **Query Examples**:
-   ```python
-   # Sample queries:
-   - "Explain structural differences between α-helices and β-sheets"
-   - "List key factors influencing protein folding"
-   - "Describe chaperone roles in protein folding"
-   ```
+1. **硬件要求**：
+   - 本地模式：≥16GB内存（推荐32GB）
+   - GPU加速：需CUDA 11+
+   - 磁盘空间：预留≥20GB（含模型）
 
-3. **Operations**:
-   - Switch local/API mode: Top-right selector
-   - Clear history: "🗑️ Clear History" button
-   - View sources: "Show Sources" under answers
+2. **文档限制**：
+   - 本地支持TXT、PDF，API支持PDF
+   - 建议≤50页/文档
+   - 中英文文档兼容
 
-## 📂 File Structure
-```
-protein-qa/
-├── app.py                  # Main application
-├── document_processor.py   # Document processing
-├── rag_engine.py           # RAG core engine
-├── local_model.py          # Local model interface
-├── api_model.py            # Web API interface
-├── models/                 # Model storage
-│   ├── chatglm-6b/         # ChatGLM-6B
-│   └── m3e-base/           # M3E embedding model
-├── knowledge_base/         # Vector storage
-│   ├── index.faiss         # FAISS index
-│   └── metadata.pkl        # Document metadata
-├── requirements.txt        # Python dependencies
-├── .env                    # Environment config
-└── README.md               # Documentation
-```
+3. **首次使用**：
+   - 本地模型加载需几分钟
+   - 知识库构建时间与文档大小成正比
+   - 建议从小型文档开始测试
 
-## ⚙️ Configuration Options
-Modify in `app.py`:
-```python
-# Model selection (local/api)
-MODEL_MODE = "local"
+## ❓ 常见问题
 
-# Text processing
-CHUNK_SIZE = 500      # Text chunk size
-CHUNK_OVERLAP = 100   # Chunk overlap
-HALLUCINATION_PROMPT = "Answer based ONLY on provided context"  # Anti-hallucination
+**Q: 如何保证研究数据安全？**
+A: 本地模式所有数据处理均在设备完成，无数据存储或传输。API模式仅发送问题文本和经处理的文本片段，符合企业数据安全要求。
 
-# Knowledge base path
-KNOWLEDGE_BASE_PATH = "./knowledge_base"
-```
+**Q: 如何防止模型编造答案？**
+A: 系统使用严格Prompt约束："仅基于提供的文档内容回答"。
 
-## ⚠️ Important Notes
+**Q: 支持哪些文档格式？**
+A: 目前支持PDF格式的研究论文和技术文档。
 
-1. **Hardware Requirements**:
-   - Local mode: ≥16GB RAM (32GB recommended)
-   - GPU acceleration: Requires CUDA 11+
-   - Disk space: Reserve ≥20GB (including models)
+## 📜 许可证
 
-2. **Security**:
-   - Local models make zero external network requests
-   - API mode sends only query text (no documents)
-
-3. **Document Limitations**:
-   - Standard PDF text only (no scanned images)
-   - Recommended ≤50 pages/document
-   - Optimized for English/Chinese content
-
-4. **First-time Use**:
-   - Local model loads in 5-10 minutes
-   - Knowledge base build time scales with document size
-   - Start with small documents for testing
-
-## ❓ FAQ
-
-**Q: How is research data secured?**
-A: Local mode processes all data on your device with zero storage/transmission. API mode sends only query text.
-
-**Q: How are hallucinations prevented?**
-A: The system uses strict prompt constraints: "Answer based ONLY on provided context".
-
-**Q: What document types are supported?**
-A: Currently supports PDF research papers and technical documents.
-
-**Q: How to update the knowledge base?**
-A: Upload new documents and click "Rebuild Knowledge Base" or delete `knowledge_base` directory.
-
-**Q: Qwen API pricing?**
-A: Qwen charges per token. Refer to [official pricing](https://help.aliyun.com/zh/dashscope/developer-reference/tongyi-thousand-questions-metering-and-billing). Local model is completely free.
-
-## 📜 License
-
-[MIT License](LICENSE) - Free for academic and commercial use
+[MIT 许可证](LICENSE) - 学术和商业场景免费使用
 
 ---
 
-**Research Tip**: Add quick links to protein databases (UniProt, PDB, RCSB) in the sidebar for rapid access! 🧪🔬
+**研究提示**：在侧边栏添加蛋白质数据库链接（如UniProt、PDB、RCSB），实现快速查询！ 🧪🔬
 ```
