@@ -107,7 +107,6 @@ DASHSCOPE_API_KEY=your_api_key_here
 
 # 本地模型路径
 model_path=./models/chatglm-6b
-```
 
 ### 2. 启动网页应用
 ```bash
