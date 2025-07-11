@@ -132,4 +132,3 @@ A: Currently supports PDF research papers and technical documents.
 ---
 
 **Research Tip**: Add protein database links (UniProt, PDB, RCSB) in the sidebar for quick access! 🧪🔬
-```
