@@ -47,22 +47,6 @@
    - 严格Prompt约束防止幻觉
    - 答案来源标注（文档+页码）
 
-### 🧠 RAG架构流程
-```mermaid
-graph TD
-    A[用户提问] --> B[问题向量化]
-    C[本地知识库] --> D[相似度检索]
-    B --> D
-    D --> E[相关文本片段]
-    E --> F{模型选择}
-    F -->|本地| G[ChatGLM-6B]
-    F -->|API| H[通义千问]
-    G --> I[生成答案]
-    H --> I
-    I --> J[溯源标注]
-    J --> K[返回结果]
-```
-
 ### 📝 对话管理
 - 完整对话历史记录
 - 一键清空对话历史
@@ -102,10 +86,10 @@ git clone https://huggingface.co/THUDM/chatglm-6b
 ## 🚀 快速开始
 
 ### 1. 配置环境
-# 通义千问API密钥（API模式需要）
+#### 通义千问API密钥（API模式需要）
 DASHSCOPE_API_KEY=your_api_key_here
 
-# 本地模型路径
+#### 本地模型路径
 model_path=./models/chatglm-6b
 
 ### 2. 启动网页应用
