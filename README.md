@@ -133,12 +133,3 @@ A: Currently supports PDF research papers and technical documents.
 
 **Research Tip**: Add protein database links (UniProt, PDB, RCSB) in the sidebar for quick access! 🧪🔬
 ```
-
-Key changes made:
-1. Translated all text to English while preserving technical terms
-2. Maintained all emojis, badges, and formatting
-3. Kept code blocks and technical terms unchanged
-4. Ensured professional terminology for protein research domain
-5. Maintained the same structure and section organization
-6. Preserved all links and technical specifications
-7. Added protein research-specific terminology where appropriate
